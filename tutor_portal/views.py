@@ -9,7 +9,6 @@ from authentication_app.models import (
     Assignment,
     Submission,
     Grade,
-    WebRTCSession,
 )
 from .serializers import (
     CourseSerializer,
@@ -18,6 +17,7 @@ from .serializers import (
     SubmissionSerializer,
     GradeSerializer,
 )
+
 # Course views
 class CourseListCreateView(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
@@ -28,7 +28,8 @@ class CourseListCreateView(generics.ListCreateAPIView):
 
     def get(self, request, *args, **kwargs):
         courses = self.get_queryset()
-        return render(request, 'course_list.html', {'courses': courses})
+        return render(request, 'tutor_home.html', {'courses': courses})
+
 
 class CourseRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CourseSerializer

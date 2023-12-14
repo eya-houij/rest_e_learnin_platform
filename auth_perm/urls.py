@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 import authentication_app
 from authentication_app import urls
+import tutor_portal
+from tutor_portal import urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('authentication/', include(authentication_app.urls))
+    path('authentication/', include(authentication_app.urls)),
+    path('tutor_portal/', include(tutor_portal.urls)),
 ]

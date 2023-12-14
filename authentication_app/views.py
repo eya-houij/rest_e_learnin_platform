@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from authentication_app.forms import UserLoginForm, UserRegistrationForm
 from rest_framework.permissions import IsAuthenticated
 
-from .models import RevokedToken
+from .models import RevokedToken, RoleEnum
 from .serializers import (
     UserLoginSerializer,
     UserRegistrationSerializer
@@ -17,7 +17,6 @@ from .serializers import (
 
 
 class UserLoginView(APIView):
-    permission_classes = [IsAuthenticated]
     def get(self, request):
         form = UserLoginForm()
         return render(request, 'login.html', {'form': form})
@@ -38,15 +37,12 @@ class UserLoginView(APIView):
                     'access': str(refresh.access_token),
                 }
 
-                # Perform necessary actions after successful login
-                return Response(
-                    {'message': 'Login successful', 'tokens': token_data},
-                    status=status.HTTP_200_OK
-                )
+                if user.role == RoleEnum.TUTOR:
+                    return redirect('course-list')  # Redirect to 'course-list' URL name
+
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return render(request, 'login.html', {'form': form})
-
 
 
 class UserRegistrationView(APIView):

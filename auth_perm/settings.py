@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'tutor_portal',
-    'student_portal',
 ]
 
 SIMPLE_JWT = {
@@ -110,9 +109,9 @@ WSGI_APPLICATION = 'auth_perm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',  # Database engine
-        'NAME': 'e_learning_db',                     # Database name
+        'NAME': 'alemnidb',                     # Database name
         'USER': 'postgres',                     # Database username
-        'PASSWORD': 'admin',             # Database password
+        'PASSWORD': 'yasin',             # Database password
         'HOST': 'localhost',                        # Database host (default: localhost)
         'PORT': '5432',                                 # Database port (default: 5432)
     }
